@@ -6,4 +6,5 @@ benchmark:
     image: marv72/apibench:latest
     links:
         - api
-    entrypoint: "ab -n 100000 -c 1000 http://api:8080/hello"
+    entrypoint: "ab -n 100000 -c 100 http://api:8080/hello"
+
