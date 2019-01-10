@@ -1,11 +1,22 @@
-FROM golang:alpine
+############################
+# STEP 1 build executable binary
+############################
 
-WORKDIR /go/src/app
-COPY ./src .
+FROM golang:alpine AS builder
 
 RUN apk add --no-cache git \
     && go get github.com/gin-gonic/gin \
     && apk del git
 
-CMD ["go", "run", "app"]
+WORKDIR /go/src/app
+COPY ./src .
+RUN go build -o /go/bin/app
 
+
+############################
+# STEP 2 build a small image
+############################
+
+FROM scratch
+COPY --from=builder /go/bin/app /go/bin/app
+ENTRYPOINT ["/go/bin/app"]
