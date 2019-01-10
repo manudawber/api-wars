@@ -1,10 +1,14 @@
 api:
     image: api-wars:latest
     ports:
-        - 8080:8080
+        - 8080:80
 benchmark:
     image: marv72/apibench:latest
     links:
         - api
+<<<<<<< Updated upstream
     entrypoint: "ab -n 100000 -c 100 http://api:8080/hello"
 
+=======
+    entrypoint: "ab -n 100000 -c 1000 http://api/hello"
+>>>>>>> Stashed changes
